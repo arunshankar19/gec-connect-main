@@ -7,6 +7,7 @@ import 'package:gecconnect2/views/login_view.dart';
 import 'package:gecconnect2/views/main_loged_in_view.dart';
 import 'package:gecconnect2/views/register_view.dart';
 import 'firebase_options.dart';
+import 'package:location/location.dart';
 
 
 void main() {

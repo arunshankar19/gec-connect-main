@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as devtools show log;
 import 'package:gecconnect2/constants/routes.dart';
+import 'package:location/location.dart';
 
 
 
@@ -15,6 +16,21 @@ class SigninView extends StatefulWidget {
 }
 
 class _SigninViewState extends State<SigninView> {
+  late final TextEditingController loca;
+
+  @override
+  void initState() {
+    loca = TextEditingController();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    loca.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
  
    @override
   Widget build(BuildContext context) {
@@ -50,8 +66,14 @@ class _SigninViewState extends State<SigninView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text('Get location Data'),
+              TextField(controller: loca,),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final loc = await getData();
+                  loca.text= loc.toString();
+
+                  devtools.log(loc.toString());                  
+                },
                 child: const Text('Click to get location data'),
               )
             ],
@@ -80,4 +102,32 @@ Future<bool> showDialogeLogout(BuildContext context) {
       ],
     ),
   ).then((value) => value ?? false);
+}
+
+
+Future<LocationData?> getData() async {
+  Location location = Location();
+
+bool _serviceEnabled;
+PermissionStatus _permissionGranted;
+LocationData _locationData;
+
+_serviceEnabled = await location.serviceEnabled();
+if (!_serviceEnabled) {
+  _serviceEnabled = await location.requestService();
+  if (!_serviceEnabled) {
+    return null;
+  }
+}
+
+_permissionGranted = await location.hasPermission();
+if (_permissionGranted == PermissionStatus.denied) {
+  _permissionGranted = await location.requestPermission();
+  if (_permissionGranted != PermissionStatus.granted) {
+    return null;
+  }
+}
+
+_locationData = await location.getLocation();
+return _locationData;
 }
