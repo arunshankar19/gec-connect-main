@@ -6,6 +6,7 @@ import 'package:gecconnect2/views/email_verify.dart';
 import 'package:gecconnect2/views/login_view.dart';
 import 'package:gecconnect2/views/main_loged_in_view.dart';
 import 'package:gecconnect2/views/register_view.dart';
+import 'package:gecconnect2/views/splash.dart';
 import 'firebase_options.dart';
 import 'package:location/location.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const Splash(),
       routes: {
         loginRoute:(context) => const Login(),
         registerRoute:(context) => const Register(),
