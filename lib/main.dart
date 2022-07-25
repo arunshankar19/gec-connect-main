@@ -5,13 +5,23 @@ import 'package:gecconnect2/constants/routes.dart';
 import 'package:gecconnect2/views/email_verify.dart';
 import 'package:gecconnect2/views/login_view.dart';
 import 'package:gecconnect2/views/main_loged_in_view.dart';
+
 import 'package:gecconnect2/views/register_view.dart';
+
 import 'package:gecconnect2/views/splash.dart';
 import 'firebase_options.dart';
 import 'package:location/location.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 
-void main() {
+
+
+
+
+void main() async{
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -26,7 +36,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Splash(),
+      home:  Splash(),
       routes: {
         loginRoute:(context) => const Login(),
         registerRoute:(context) => const Register(),

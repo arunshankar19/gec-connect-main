@@ -1,34 +1,114 @@
 {
   "project_info": {
-    "project_number": "1003023675005",
-    "project_id": "gec-connect-app-2",
-    "storage_bucket": "gec-connect-app-2.appspot.com"
+    "project_number": "80094882543",
+    "firebase_url": "https://gecconnect2-default-rtdb.firebaseio.com",
+    "project_id": "gecconnect2",
+    "storage_bucket": "gecconnect2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1003023675005:android:c086f9676c865f095f4b14",
+        "mobilesdk_app_id": "1:80094882543:android:1beb952122311fe084091a",
         "android_client_info": {
-          "package_name": "com.example.gecconnect2"
+          "package_name": "com.example.database_test"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1003023675005-f1o38esacc99p1d0pi2698dcsv5e8b63.apps.googleusercontent.com",
+          "client_id": "80094882543-hgdffsegca84l0c45f3um0n0n7aegteh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBTTTh6uJuopUG-uJY98gvu1K60p_lMeK0"
+          "current_key": "AIzaSyBFidAG5IwBgPNids3MV0vkdyaJzv2KXQE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1003023675005-f1o38esacc99p1d0pi2698dcsv5e8b63.apps.googleusercontent.com",
+              "client_id": "80094882543-hgdffsegca84l0c45f3um0n0n7aegteh.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "80094882543-916dp9f640bacgr0rkev7m95qrfkjtfc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gecConnect2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80094882543:android:a00af27a3f8dfa5a84091a",
+        "android_client_info": {
+          "package_name": "com.example.gec_connect2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80094882543-hgdffsegca84l0c45f3um0n0n7aegteh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFidAG5IwBgPNids3MV0vkdyaJzv2KXQE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80094882543-hgdffsegca84l0c45f3um0n0n7aegteh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "80094882543-916dp9f640bacgr0rkev7m95qrfkjtfc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gecConnect2"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80094882543:android:1ee8c87314e6eb7284091a",
+        "android_client_info": {
+          "package_name": "com.example.gecconnect2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80094882543-hgdffsegca84l0c45f3um0n0n7aegteh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFidAG5IwBgPNids3MV0vkdyaJzv2KXQE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80094882543-hgdffsegca84l0c45f3um0n0n7aegteh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "80094882543-916dp9f640bacgr0rkev7m95qrfkjtfc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gecConnect2"
+              }
             }
           ]
         }

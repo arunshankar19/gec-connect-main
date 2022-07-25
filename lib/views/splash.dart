@@ -19,7 +19,7 @@ class _SplashState extends State<Splash> {
   }
 
 _navigatetohome()async{
-  await Future.delayed(Duration(milliseconds:3000),() {});
+  await Future.delayed(Duration(milliseconds:5000),() {});
   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
 
 }
@@ -58,7 +58,8 @@ _navigatetohome()async{
                       
                       
                        Text('gec connect',
-                         style: GoogleFonts.raleway(
+                       
+                         style: GoogleFonts.openSans(
                          fontWeight: FontWeight.w500,
                          color: Colors.white,
                          fontSize: 24.0,

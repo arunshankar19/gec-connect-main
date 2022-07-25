@@ -77,8 +77,8 @@ class _LoginState extends State<Login> {
                         
                         Container(
                            padding: EdgeInsets.only(bottom: 17.0,),
-                          child: Text('gec connect',
-                           style: GoogleFonts.raleway(
+                          child: Text('Sign In',
+                           style: GoogleFonts.openSans(
                            fontWeight: FontWeight.w500,
                            color: Colors.white,
                            fontSize: 24.0,
@@ -92,6 +92,7 @@ class _LoginState extends State<Login> {
                           borderRadius: BorderRadius.circular(8.0)
                         ), 
                         child: TextField(
+                           style: TextStyle(color: Colors.white,),
                           
                           controller: _email,
                           decoration: const InputDecoration(
@@ -122,10 +123,12 @@ class _LoginState extends State<Login> {
                         
 
                         child: TextField(
+                          style: TextStyle(color: Colors.white,),
                           obscureText: true,
                           enableSuggestions: false,
                           autocorrect: false,
                           decoration: const InputDecoration(hintText: 'Password',
+                          
                           contentPadding: EdgeInsets.only(top:0,left: 15,right: 15,bottom: 6),
                           hintStyle: TextStyle(
                             color: Color.fromARGB(255, 134, 132, 132)
@@ -134,6 +137,8 @@ class _LoginState extends State<Login> {
                           controller: _password,
                         ),
                       ),
+
+                      
                       Container(
                         width: 300,
                         
@@ -141,7 +146,7 @@ class _LoginState extends State<Login> {
                         child: RaisedButton(
                           
                             onPressed: () async {
-                              final email = _email.text;
+                              var email = _email.text;
                               final pass = _password.text;
                               try {
                                 final user = await FirebaseAuth.instance
@@ -165,39 +170,44 @@ class _LoginState extends State<Login> {
                               } on FirebaseAuthException catch (e) {
                                 switch (e.code) {
                                   case 'invalid-email':
+                                  await showDialogIncorrect(context, "Not a valid Email.");
                                     devtools.log('Invaid Email');
                                     break;
                                   case 'wrong-password':
-                                     await showDialogIncorrect(context,'Wrong credentials');
+                                     await showDialogIncorrect(context,'Wrong credentials.');
                                     devtools.log('Wrong credentials');
                                     break;
                                   case 'user-not-found':
-                                  await showDialogIncorrect(context, 'No user Found');
+                                  await showDialogIncorrect(context, "You don't have an account.");
                                     devtools.log('no user found');
                                     break;
                                 }
                                 //(e.code);
                               }
                             },
+                            highlightColor: Color.fromARGB(255, 137, 10, 1),
+                            
+                            
                         
                           
-                            color: Colors.white,
+                            
                             
                             shape: RoundedRectangleBorder(
                                   
                               borderRadius: BorderRadius.circular(8)),
                               
+                              
                             
-                            child: Text('Login',
-                            style: GoogleFonts.raleway(
-                              color: Colors.black
-                            )
+                            child: Text('Sign In',
+                            
+                            
                             ),
+                            
                             
                             ),
                            
                       ),
-                      SizedBox(height: 215.0,)
+                      SizedBox(height: 210.0,)
                       ,
                       Container(
                          padding: EdgeInsets.only(top:0),
@@ -208,7 +218,7 @@ class _LoginState extends State<Login> {
                                   registerRoute, (route) => false);
                             },
                             child: Text('Create an Account',
-                            style: GoogleFonts.raleway(
+                            style: GoogleFonts.openSans(
                             color: Colors.white)
                             )
                             ),
@@ -234,13 +244,18 @@ Future<void> showDialogIncorrect(
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('Error'),
+      title: Text('Warning',
+      
+      style: GoogleFonts.openSans(
+      fontWeight: FontWeight.bold,
+      ),),
       content: Text(text),
       actions: [
-        TextButton(
+        RaisedButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
+            highlightColor: Color.fromARGB(255, 137, 10, 1),
             child: const Text('Ok'))
       ],
     ),
