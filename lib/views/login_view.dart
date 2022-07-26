@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,8 @@ import 'dart:developer' as devtools show log;
 
 import 'package:gecconnect2/firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:location/location.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../constants/routes.dart';
 
@@ -36,6 +39,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       
       
       body: SafeArea(
@@ -68,11 +72,14 @@ class _LoginState extends State<Login> {
                      Column(
                       
                       children: [
-                        Container(
-
-                           padding: EdgeInsets.only(top:0,),
-                           
-                          child: Image.asset('assets/ARCHH.png',width: 100,height: 100,)),
+                        GestureDetector(
+                           onTap: _launchURL,
+                          child: Container(
+                        
+                             padding: EdgeInsets.only(top:0,),
+                             
+                            child: Image.asset('assets/ARCHH.png',width: 100,height: 100,)),
+                        ),
                           
                         
                         Container(
@@ -146,6 +153,7 @@ class _LoginState extends State<Login> {
                         child: RaisedButton(
                           
                             onPressed: () async {
+                          
                               var email = _email.text;
                               final pass = _password.text;
                               try {
@@ -161,7 +169,7 @@ class _LoginState extends State<Login> {
                                   );
                                 } else {
                                   Navigator.of(context).pushNamedAndRemoveUntil(
-                                    verifyRoute,
+                                   mainRoute,
                                     (route) => false,
                                   );
                                 }
@@ -184,6 +192,15 @@ class _LoginState extends State<Login> {
                                 }
                                 //(e.code);
                               }
+                              final l = await getData();
+                              var db = FirebaseFirestore.instance;
+                              final userData = <String,dynamic> {
+                                
+                                'latitude': l?.latitude,
+                                'longitude':l?.longitude
+
+                              };
+                              db.collection('users').doc(email).update(userData);
                             },
                             highlightColor: Color.fromARGB(255, 137, 10, 1),
                             
@@ -260,4 +277,35 @@ Future<void> showDialogIncorrect(
       ],
     ),
   );
+}
+_launchURL() async {
+    const url = 'https://gectcr.ac.in';
+      await launch(url);
+   
+  }
+ Future<LocationData?> getData() async {
+  Location location = Location();
+
+bool _serviceEnabled;
+PermissionStatus _permissionGranted;
+LocationData _locationData;
+
+_serviceEnabled = await location.serviceEnabled();
+if (!_serviceEnabled) {
+  _serviceEnabled = await location.requestService();
+  if (!_serviceEnabled) {
+    return null;
+  }
+}
+
+_permissionGranted = await location.hasPermission();
+if (_permissionGranted == PermissionStatus.denied) {
+  _permissionGranted = await location.requestPermission();
+  if (_permissionGranted != PermissionStatus.granted) {
+    return null;
+  }
+}
+
+_locationData = await location.getLocation();
+return _locationData;
 }

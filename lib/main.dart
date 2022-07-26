@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:gecconnect2/constants/mongodb.dart';
 import 'package:gecconnect2/constants/routes.dart';
 import 'package:gecconnect2/views/email_verify.dart';
 import 'package:gecconnect2/views/login_view.dart';
@@ -9,9 +10,9 @@ import 'package:gecconnect2/views/main_loged_in_view.dart';
 import 'package:gecconnect2/views/register_view.dart';
 
 import 'package:gecconnect2/views/splash.dart';
+import 'package:gecconnect2/views/verify_email_test.dart';
 import 'firebase_options.dart';
-import 'package:location/location.dart';
-import 'package:firebase_database/firebase_database.dart';
+
 
 
 
@@ -21,7 +22,7 @@ import 'package:firebase_database/firebase_database.dart';
 void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await MongoDatabase.connect();
   runApp(const MyApp());
 }
 
@@ -52,6 +53,7 @@ class HomePage extends StatefulWidget {
 
   @override
   State<HomePage> createState() => _HomePageState();
+  
 }
 
 class _HomePageState extends State<HomePage> {

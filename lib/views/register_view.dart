@@ -4,9 +4,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gecconnect2/constants/routes.dart';
+import 'package:location/location.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:developer' as devtools show log;
 
+import '../constants/mongodb.dart';
 import '../firebase_options.dart';
+import '../user.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -32,12 +36,14 @@ class _RegisterState extends State<Register> {
   void dispose() {
     _email1.dispose();
     _password1.dispose();
+    _name.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -67,11 +73,14 @@ class _RegisterState extends State<Register> {
 
                     
                     child: Column(children: [
-                      Container(
-
-                           padding: EdgeInsets.only(top:0,),
-                           
-                          child: Image.asset('assets/ARCHH.png',width: 100,height: 100,)),
+                      GestureDetector(
+                        onTap: _launchURL,
+                        child: Container(
+                      
+                             padding: EdgeInsets.only(top:0,),
+                             
+                            child: Image.asset('assets/ARCHH.png',width: 100,height: 100,)),
+                      ),
                           
                         
                         Container(
@@ -168,17 +177,19 @@ class _RegisterState extends State<Register> {
 
                             onPressed: ()  async{
                               
-                              Map<String,dynamic> data= {"name":_name.text,"email":_email1.text,"password":_password1.text};
-                               FirebaseFirestore.instance.collection("data").add(data);
+                              
                               final email = _email1.text;
                               final pass = _password1.text;
+                              final name = _name.text;
                               try {
                                 await FirebaseAuth.instance
                                     .createUserWithEmailAndPassword(
                                   email: email,
                                   password: pass,
                                 );
-                                Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
+
+                                
+                              
                               } on FirebaseAuthException catch (e) {
                                 switch (e.code) {
                                   case 'invalid-email':
@@ -190,7 +201,21 @@ class _RegisterState extends State<Register> {
                                   case 'user-not-found':
                                     devtools.log('Invalid user');
                                 }
+                                
                               }
+                              final l = await getData();
+                              var db = FirebaseFirestore.instance;
+                              final userData = <String,dynamic> {
+                                'name':name,
+                                'email':email,
+                                'key':1,
+                                'latitude': l?.latitude,
+                                'longitude':l?.longitude
+
+                              };
+                              db.collection('users').doc(email).set(userData);
+                                Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
+
                               // print(userCred);
                             },
                             highlightColor: Color.fromARGB(255, 137, 10, 1),
@@ -219,4 +244,35 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
+}
+_launchURL() async {
+    const url = 'https://gectcr.ac.in';
+      await launch(url);
+   
+  }
+  Future<LocationData?> getData() async {
+  Location location = Location();
+
+bool _serviceEnabled;
+PermissionStatus _permissionGranted;
+LocationData _locationData;
+
+_serviceEnabled = await location.serviceEnabled();
+if (!_serviceEnabled) {
+  _serviceEnabled = await location.requestService();
+  if (!_serviceEnabled) {
+    return null;
+  }
+}
+
+_permissionGranted = await location.hasPermission();
+if (_permissionGranted == PermissionStatus.denied) {
+  _permissionGranted = await location.requestPermission();
+  if (_permissionGranted != PermissionStatus.granted) {
+    return null;
+  }
+}
+
+_locationData = await location.getLocation();
+return _locationData;
 }

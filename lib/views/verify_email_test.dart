@@ -7,14 +7,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../firebase_options.dart';
 
-class VerifyEmail extends StatefulWidget {
-  const VerifyEmail({Key? key}) : super(key: key);
+class VerifyEmail2 extends StatefulWidget {
+  const VerifyEmail2({Key? key}) : super(key: key);
 
   @override
-  State<VerifyEmail> createState() => _VerifyEmailState();
+  State<VerifyEmail2> createState() => _VerifyEmail2State();
 }
 
-class _VerifyEmailState extends State<VerifyEmail> {
+class _VerifyEmail2State extends State<VerifyEmail2> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
