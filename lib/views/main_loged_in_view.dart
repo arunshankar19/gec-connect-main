@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+<<<<<<< HEAD
 import 'package:google_fonts/google_fonts.dart';
+=======
+>>>>>>> 64bf3ab472fb03cedd7e03e63628c0e23d3ea604
 import 'package:latlong2/latlong.dart' as latlong;
 import 'dart:developer' as devtools show log;
 import 'package:gecconnect2/constants/routes.dart';
@@ -69,8 +72,13 @@ class _SigninViewState extends State<SigninView> {
         ),
         body: Stack(
         children: [
+<<<<<<< HEAD
           FutureBuilder<List<Marker>> (
               future: markerData(),
+=======
+          FutureBuilder<LocationData?>(
+              future: getData(),
+>>>>>>> 64bf3ab472fb03cedd7e03e63628c0e23d3ea604
               builder: (context, snapshot) {
                 return FlutterMap(
                   options: MapOptions(
@@ -91,11 +99,28 @@ class _SigninViewState extends State<SigninView> {
                         'id': 'mapbox.streets',
                       },
                     ),
+<<<<<<< HEAD
                     MarkerLayerOptions(markers: snapshot.data ??  [ Marker(point: latlong.LatLng(10.5559684, 76.2180367),
     width: 30,
     height: 30,
      builder: (context) =>Icon(Icons.location_pin)
     )]//data, //getMarkerList(locationData),
+=======
+                    MarkerLayerOptions(markers: [
+                      Marker(
+                        width: 50.0,
+                        height: 50.0,
+                        point: latlong.LatLng(snapshot.data?.latitude ?? 0.0,
+                            snapshot.data?.longitude ?? 0.0),
+                        builder: (context) => Column(
+                          children: [
+                            Icon(Icons.location_pin),
+                            const Text('Arun'),
+                          ],
+                        ),
+                      ),
+                    ] //data, //getMarkerList(locationData),
+>>>>>>> 64bf3ab472fb03cedd7e03e63628c0e23d3ea604
                         ),
                   ],
                 );
@@ -106,7 +131,10 @@ class _SigninViewState extends State<SigninView> {
   }
 }
 
+<<<<<<< HEAD
                             
+=======
+>>>>>>> 64bf3ab472fb03cedd7e03e63628c0e23d3ea604
 Future<LocationData?> getData() async {
   Location location = Location();
 
@@ -165,6 +193,7 @@ Future<bool> showDialogeLogout(BuildContext context) {
   ).then((value) => value ?? false);
 }
 
+<<<<<<< HEAD
 Future<List<Map<String,dynamic>>> getAllData() async{
     var db = FirebaseFirestore.instance;
   final locref = await db.collection('users').where('key',isEqualTo: 1).get();
@@ -204,3 +233,6 @@ Future<List<Marker>> markerData () async {
   devtools.log(m.toString());
   return m;
 }
+=======
+
+>>>>>>> 64bf3ab472fb03cedd7e03e63628c0e23d3ea604

@@ -42,8 +42,11 @@ dependencies:
   animated_text_kit: ^4.2.2
   cloud_firestore: ^3.4.0
   firebase_database: ^9.0.20
+<<<<<<< HEAD
   mongo_dart: ^0.7.4+1
   url_launcher: ^6.1.5
+=======
+>>>>>>> 64bf3ab472fb03cedd7e03e63628c0e23d3ea604
   flutter_map: ^2.1.1
   latlong2: ^0.8.1
   
